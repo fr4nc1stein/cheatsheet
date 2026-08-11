@@ -1,55 +1,13 @@
-# Reconnaissance
+# Cheatsheet
 
-**1. WHOIS Lookup:**
+A personal reference for penetration testing and CTF work — commands, tools, and methodology, organized so the right page is a couple of clicks away mid-engagement or mid-challenge.
 
-WHOIS is a protocol that provides information about registered domain names and IP addresses.
+## Pentest
 
-*   Command:
+Methodology and tooling for authorized security engagements: [Reconnaissance](pentest/reconnaissance.md), [Network Scanning and Enumeration](pentest/network-scanning-and-enumeration.md), [Methodology & Report Writing](pentest/methodology-and-report-writing.md), [Active Directory](pentest/active-directory/README.md), [Web Application Pentest](pentest/web/README.md), [API Pentest](pentest/api-pentest.md), [Host-Based Privilege Escalation](pentest/privilege-escalation/README.md), [Password Attacks & Cracking](pentest/password-attacks-and-cracking.md), [Wireless Pentest](pentest/wireless-pentest.md), [Mobile Application Pentest](pentest/mobile-application-pentest.md), and [Cloud Pentest](pentest/cloud-pentest.md).
 
-    ```
-    whois <domain_name>
-    ```
+## CTF
 
-**2. DNS Lookup:**
+Category cheatsheets for challenge solving: [Getting Started](ctf/README.md), [Web Exploitation](ctf/web-exploitation.md), [Binary Exploitation (Pwn)](ctf/binary-exploitation.md), [Reverse Engineering](ctf/reverse-engineering.md), [Cryptography](ctf/cryptography.md), [Forensics & Steganography](ctf/forensics-and-steganography.md), and [OSINT & Misc](ctf/osint-and-misc.md).
 
-DNS (Domain Name System) lookup allows you to retrieve DNS records associated with a domain name or IP address.
-
-*   Command:
-
-    ```
-    nslookup <domain_name or IP_address>
-    ```
-
-**3. DNS Enumeration Tools:** These tools automate the process of gathering information about a target's DNS records, including subdomains.
-
-* Examples of DNS enumeration tools:
-  *   **Sublist3r**:
-
-      `sublist3r -d <domain_name>`
-  *   **DNSenum**:
-
-      `dnsenum <domain_name>`
-  *   **Fierce**:
-
-      `fierce --domain <domain_name>`
-
-**4. Search Engines:**
-
-Search engines can be a valuable resource for finding publicly available information about a target.
-
-* Examples of search engines:
-  * **Google**:
-    *   Search for domain-related information:
-
-        `site:<domain_name>`
-    *   Search for subdomains:
-
-        `site:*.<domain_name>`
-  * **Shodan**:
-    *   Search for IP-related information and open services:
-
-        `ip:<IP_address>`
-  * **Censys**:
-    *   Search for information about domains, IP addresses, certificates, etc.:
-
-        `<search_query>`
+See [SUMMARY.md](SUMMARY.md) for the full table of contents.

@@ -2,7 +2,7 @@
 
 ## Pentest
 
-* [Reconnaissance](README.md)
+* [Reconnaissance](pentest/reconnaissance.md)
 * [Network Scanning and Enumeration](pentest/network-scanning-and-enumeration.md)
 * [Methodology & Report Writing](pentest/methodology-and-report-writing.md)
 * [Active Directory](pentest/active-directory/README.md)
