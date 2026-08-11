@@ -10,6 +10,7 @@ General approach and tooling for CTF challenges, organized by category. Unlike a
 * [Cryptography](cryptography.md)
 * [Forensics & Steganography](forensics-and-steganography.md)
 * [OSINT & Misc](osint-and-misc.md)
+* [AI & Prompt Injection](ai-and-prompt-injection.md)
 
 ## First steps on any challenge file
 
