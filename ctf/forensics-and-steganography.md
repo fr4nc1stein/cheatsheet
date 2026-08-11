@@ -97,3 +97,86 @@ vol -f memdump.raw windows.dumpfiles --pid <PID>
 
 * When stuck, re-run `binwalk` and `exiftool` on *every* file you extract — stego/forensics challenges love nesting (image → zip → text → base64 → flag).
 * Keep a scratch directory and extract iteratively rather than trying to solve everything from the original blob.
+
+## Advanced Techniques
+
+### Advanced Volatility 3 Usage
+
+**Timeline reconstruction:**
+
+```
+vol -f memdump.raw timeliner.Timeliner
+```
+
+Correlates timestamps across plugins (process creation, file objects, registry key modification) into one chronological view — useful for establishing what happened around a suspicious event before you know which process/file to focus on.
+
+**`malfind` workflow for injected code:**
+
+```
+vol -f memdump.raw windows.malfind
+```
+
+1. Look for memory regions flagged `PAGE_EXECUTE_READWRITE` with no backing file (private, not mapped from a DLL/EXE) — a strong injection indicator.
+2. Cross-reference the flagged PID with `windows.pslist`/`windows.pstree` to check if the process is a plausible injection target (`explorer.exe`, `svchost.exe`).
+3. Dump the flagged region for static analysis or YARA scanning:
+
+```
+vol -f memdump.raw windows.vadyarascan --pid <PID> --yara-rules rules.yar
+```
+
+4. `windows.dumpfiles --pid <PID>` to pull backing files for comparison against known-good versions.
+
+**Persistence hunting via registry:**
+
+```
+vol -f memdump.raw windows.registry.printkey --key "Microsoft\Windows\CurrentVersion\Run"
+vol -f memdump.raw windows.registry.printkey --key "Microsoft\Windows\CurrentVersion\RunOnce"
+```
+
+Check standard autorun locations, `Services` keys, and scheduled-task registration keys for anything referencing an unfamiliar binary path — the classic persistence-in-a-memdump challenge.
+
+### Blockchain Forensics
+
+**Tracing an address:**
+
+* Bitcoin: a block explorer ([blockchain.com](https://www.blockchain.com/explorer), [mempool.space](https://mempool.space/)) for manual graph-walking, or script it:
+
+```
+bitcoin-cli getrawtransaction <txid> 1
+```
+
+* Ethereum: [Etherscan](https://etherscan.io/) for manual tracing; `web3.py` for scripted graphs:
+
+```python
+from web3 import Web3
+w3 = Web3(Web3.HTTPProvider('https://rpc-url'))
+tx = w3.eth.get_transaction('0x...')
+balance = w3.eth.get_balance('0xAddress')
+```
+
+* Look for address reuse linking a "clean" address to a known one (exchange deposit address, an address seen elsewhere in the challenge), and round-trip amounts tying transactions together across hops.
+
+**Extracting wallet data from a disk image:**
+
+* Locate wallet files by known paths: `wallet.dat` (Bitcoin Core), `keystore/` JSON files (Ethereum/geth), browser-extension storage (MetaMask's IndexedDB/LevelDB under the extension's profile directory).
+* `wallet.dat` is a Berkeley DB file — dump keys with `bitcoin-wallet` tooling or `pywallet`; if encrypted, the passphrase is often the crackable secret (`john`/`hashcat -m 11300` support Bitcoin/Litecoin `wallet.dat` hashes).
+* MetaMask/browser-extension keystores are password-encrypted JSON (AES) — identify the KDF/cipher and brute-force the passphrase the same way.
+
+### Network Forensics Deep-Dive
+
+**Decrypting TLS in Wireshark with a known session key log:**
+
+1. If challenge material includes an `SSLKEYLOGFILE`-format log (or a companion agent/binary can be made to dump one), point Wireshark at it: `Edit > Preferences > Protocols > TLS > (Pre)-Master-Secret log filename`.
+2. Wireshark decrypts the TLS streams live — `Follow > TLS Stream` then works exactly like an HTTP stream.
+3. Without a keylog file but with an RSA private key and a non-(EC)DHE cipher suite (static RSA key exchange), Wireshark can decrypt directly via `Protocols > TLS > RSA keys list` — this does not work against forward-secret suites, which cover most modern traffic.
+
+**Detecting DNS tunneling:**
+
+* Abnormally high volume/frequency of `TXT` (or `NULL`/`CNAME`) queries to a single unusual domain — legitimate traffic rarely needs many TXT lookups in a short window.
+* High entropy in subdomain labels (base32/base64-looking labels like `aGVsbG8gd29ybGQ.tunnel.evil.com`) is the other strong tell — tunneling tools encode exfiltrated data into subdomain labels.
+
+```
+tshark -r capture.pcap -Y "dns.qry.type == 16" -T fields -e dns.qry.name | sort | uniq -c | sort -rn
+```
+
+* Decode the collected labels (base32/base64/hex depending on the tunneling tool — `iodine` and `dnscat2` use distinct framing) to reconstruct the exfiltrated payload.
