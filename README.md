@@ -4,7 +4,11 @@ A personal reference for penetration testing and CTF work — commands, tools, a
 
 ## Pentest
 
-Methodology and tooling for authorized security engagements: [Reconnaissance](pentest/reconnaissance.md), [Network Scanning and Enumeration](pentest/network-scanning-and-enumeration.md), [Methodology & Report Writing](pentest/methodology-and-report-writing.md), [Active Directory](pentest/active-directory/README.md), [Web Application Pentest](pentest/web/README.md), [API Pentest](pentest/api-pentest.md), [AI / LLM Security Testing](pentest/ai/README.md), [Host-Based Privilege Escalation](pentest/privilege-escalation/README.md), [Password Attacks & Cracking](pentest/password-attacks-and-cracking.md), [Exploit Development](pentest/exploit-development.md), [Wireless Pentest](pentest/wireless-pentest.md), [Mobile Application Pentest](pentest/mobile-application-pentest.md), and [Cloud Pentest](pentest/cloud-pentest.md).
+Methodology and tooling for authorized security engagements: [Reconnaissance](pentest/reconnaissance.md), [Network Scanning and Enumeration](pentest/network-scanning-and-enumeration.md), [Methodology & Report Writing](pentest/methodology-and-report-writing.md), [Active Directory](pentest/active-directory/README.md), [Web Application Pentest](pentest/web/README.md), [API Pentest](pentest/api-pentest.md), [AI / LLM Security Testing](pentest/ai/README.md), [Host-Based Privilege Escalation](pentest/privilege-escalation/README.md), [Pivoting & Tunneling](pentest/pivoting-and-tunneling.md), [Password Attacks & Cracking](pentest/password-attacks-and-cracking.md), [Exploit Development](pentest/exploit-development.md), [Wireless Pentest](pentest/wireless-pentest.md), [Mobile Application Pentest](pentest/mobile-application-pentest.md), and [Cloud Pentest](pentest/cloud-pentest.md).
+
+## Blue Team
+
+Defensive security references for SOC, IR, and detection work: [Getting Started](blueteam/README.md), [Threat Intelligence](blueteam/threat-intelligence.md), [Threat Hunting](blueteam/threat-hunting.md), [Detection Engineering](blueteam/detection-engineering.md), [SIEM & Log Analysis](blueteam/siem-and-log-analysis.md), [DFIR](blueteam/dfir.md), [Malware Analysis](blueteam/malware-analysis.md), [Network Security Monitoring](blueteam/network-security-monitoring.md), and [Purple Team & Hardening](blueteam/purple-team-and-hardening.md).
 
 ## CTF
 

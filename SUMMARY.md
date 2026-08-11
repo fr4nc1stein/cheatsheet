@@ -24,12 +24,24 @@
   * [Model & Infrastructure Security](pentest/ai/model-and-infrastructure-security.md)
 * [Host-Based Privilege Escalation](pentest/privilege-escalation/README.md)
   * [Linux Privilege Escalation](pentest/privilege-escalation/linux-privilege-escalation.md)
-  * [Windows Privilege Escalation](pentest/privilege-escalation/windows-privilege-escalation.md)
+* [Pivoting & Tunneling](pentest/pivoting-and-tunneling.md)
 * [Password Attacks & Cracking](pentest/password-attacks-and-cracking.md)
 * [Exploit Development](pentest/exploit-development.md)
 * [Wireless Pentest](pentest/wireless-pentest.md)
 * [Mobile Application Pentest](pentest/mobile-application-pentest.md)
 * [Cloud Pentest](pentest/cloud-pentest.md)
+
+## Blue Team
+
+* [Getting Started](blueteam/README.md)
+* [Threat Intelligence](blueteam/threat-intelligence.md)
+* [Threat Hunting](blueteam/threat-hunting.md)
+* [Detection Engineering](blueteam/detection-engineering.md)
+* [SIEM & Log Analysis](blueteam/siem-and-log-analysis.md)
+* [DFIR](blueteam/dfir.md)
+* [Malware Analysis](blueteam/malware-analysis.md)
+* [Network Security Monitoring](blueteam/network-security-monitoring.md)
+* [Purple Team & Hardening](blueteam/purple-team-and-hardening.md)
 
 ## CTF
 
